@@ -1,5 +1,5 @@
 ## ExData_Plotting1 Course Project
-## plot1.R: Code to produce first reference plot
+## plot3.R: Code to produce third reference plot
 
 ## This code assumes that the downloaded zip file
 ## "household_power_consumption.zip" is in the working directory, or that an
@@ -34,12 +34,22 @@ if( dataFile %in% dir() ) {
 
 ## 
     
-png( filename = 'plot1.png' )  # Default is desired size of 480x480 pixels
+png( filename = 'plot3.png' )  # Default is desired size of 480x480 pixels
 
-    hist( dataWorking$Global_active_power, col='red',
-          main='Global Active Power',
-          xlab='Global Active Power (kilowatts)')
+  submeterColumns <- grep( 'Sub_metering', colnames( dataWorking ), value=TRUE )
+  vertRange <- range( dataWorking[, submeterColumns], na.rm=TRUE )
+  myColors <- c( 'black', 'red', 'blue' )
+
+  plot( dataWorking$datetime, dataWorking[ , submeterColumns[1] ], type='n',
+        xlab='',
+        ylim=vertRange, ylab='Energy sub metering' )
+  for( s in seq( along=submeterColumns ) ) {
+    lines( dataWorking$datetime, dataWorking[ , submeterColumns[ s ] ], col=myColors[s] )
+  }
+  legend( 'topright', lty='solid', col=myColors, legend=submeterColumns)
+
+  ## Normally, I would add a main title
+  ## title( main='Power Consumption, Submetered by Minute, 2007-02-01 to 2007-02-02' )
 
 dev.off()
-    
-    
+

@@ -1,5 +1,5 @@
 ## ExData_Plotting1 Course Project
-## plot1.R: Code to produce first reference plot
+## plot4.R: Code to produce fourth reference plot
 
 ## This code assumes that the downloaded zip file
 ## "household_power_consumption.zip" is in the working directory, or that an
@@ -34,12 +34,38 @@ if( dataFile %in% dir() ) {
 
 ## 
     
-png( filename = 'plot1.png' )  # Default is desired size of 480x480 pixels
+png( filename = 'plot4.png' )  # Default is desired size of 480x480 pixels
 
-    hist( dataWorking$Global_active_power, col='red',
-          main='Global Active Power',
-          xlab='Global Active Power (kilowatts)')
+  par( mfrow = c( 2, 2 ) )
+
+  ## Plot A: Upper Left-- almost the same as Plot 2 from assignment
+
+    with( dataWorking, plot( datetime, Global_active_power, type='l',
+                             xlab='', ylab='Global Active Power' ) )
+
+
+  ## Plot B: Upper Right
+    with( dataWorking, plot( datetime, Voltage, type='l' ) )
+
+  ## Plot C: Lower Left-- almost the same as Plot 3 from assignment
+  
+    submeterColumns <- grep( 'Sub_metering', colnames( dataWorking ), value=TRUE )
+    vertRange <- range( dataWorking[, submeterColumns], na.rm=TRUE )
+    myColors <- c( 'black', 'red', 'blue' )
+  
+    plot( dataWorking$datetime, dataWorking[ , submeterColumns[1] ], type='n',
+          xlab='',
+          ylim=vertRange, ylab='Energy sub metering' )
+    for( s in seq( along=submeterColumns ) ) {
+      lines( dataWorking$datetime, dataWorking[ , submeterColumns[ s ] ], col=myColors[s] )
+    }
+    legend( 'topright', lty='solid', col=myColors, legend=submeterColumns, bty='n')
+  
+  ## Plot D: Lower Right
+    with( dataWorking, plot( datetime, Global_reactive_power, type='l' ) )
+
+  ## Normally, I would add an overall title (some vertical adjustment may be needed)
+  ## title( main='Power Consumption Summaries', outer=TRUE )
 
 dev.off()
-    
-    
+

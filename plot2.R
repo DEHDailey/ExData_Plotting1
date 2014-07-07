@@ -1,5 +1,5 @@
 ## ExData_Plotting1 Course Project
-## plot1.R: Code to produce first reference plot
+## plot2.R: Code to produce second reference plot
 
 ## This code assumes that the downloaded zip file
 ## "household_power_consumption.zip" is in the working directory, or that an
@@ -34,12 +34,13 @@ if( dataFile %in% dir() ) {
 
 ## 
     
-png( filename = 'plot1.png' )  # Default is desired size of 480x480 pixels
+png( filename = 'plot2.png' )  # Default is desired size of 480x480 pixels
 
-    hist( dataWorking$Global_active_power, col='red',
-          main='Global Active Power',
-          xlab='Global Active Power (kilowatts)')
+  with( dataWorking, plot( datetime, Global_active_power, type='l',
+                           xlab='', ylab='Global Active Power (kilowatts)' ) )
+
+  ## Normally, I would add a main title
+  ## title( main='Global Active Power Consumption by Minute, 2007-02-01 to 2007-02-02' )
 
 dev.off()
-    
-    
+
