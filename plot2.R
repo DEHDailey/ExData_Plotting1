@@ -1,6 +1,11 @@
 ## ExData_Plotting1 Course Project
 ## plot2.R: Code to produce second reference plot
 
+## My goal is to reproduce the visible features of the reference figure in the
+## specified plot size.  Details such as exactly matching the colors of the
+## reference figure, or mimicking the transparency of the backgrounds of
+## figures, are beyond the scope of this assignment and course.
+
 ## This code assumes that the downloaded zip file
 ## "household_power_consumption.zip" is in the working directory, or that an
 ## rdata file containing the relevant data exists in the working directory.  The
